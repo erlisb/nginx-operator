@@ -17,6 +17,7 @@ limitations under the License.
 package main
 
 import (
+	"embed"
 	"flag"
 	"os"
 
@@ -35,6 +36,9 @@ import (
 	"github.com/erlisb/nginx-operator/controllers"
 	//+kubebuilder:scaffold:imports
 )
+
+//go:embed assets/nginx_deployment.yaml
+var deployment embed.FS
 
 var (
 	scheme   = runtime.NewScheme()
