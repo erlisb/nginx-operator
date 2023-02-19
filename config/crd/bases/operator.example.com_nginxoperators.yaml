@@ -42,6 +42,7 @@ spec:
               port:
                 default: 8080
                 description: Port is the port number to expose on the Nginx Pod
+                format: int32
                 type: integer
               replicas:
                 description: Replicas is the number of deployment replicas to scale

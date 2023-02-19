@@ -28,7 +28,7 @@ type NginxOperatorSpec struct {
 	// Port is the port number to expose on the Nginx Pod
 	// +kubebuilder:default=8080
 	// +kubebuilder:validation:Required
-	Port int `json:"port"`
+	Port *int32 `json:"port"`
 
 	// Replicas is the number of deployment replicas to scale
 	Replicas *int32 `json:"replicas,omitempty"`
