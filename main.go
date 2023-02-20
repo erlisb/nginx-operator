@@ -1,12 +1,9 @@
 /*
-Copyright 2023.
-
+Copyright 2021.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +14,6 @@ limitations under the License.
 package main
 
 import (
-	"context"
 	"flag"
 	"os"
 
@@ -34,7 +30,6 @@ import (
 
 	operatorv1alpha1 "github.com/erlisb/nginx-operator/api/v1alpha1"
 	"github.com/erlisb/nginx-operator/controllers"
-	"github.com/operator-framework/operator-lib/leader"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -59,6 +54,7 @@ func main() {
 	flag.BoolVar(&enableLeaderElection, "leader-elect", false,
 		"Enable leader election for controller manager. "+
 			"Enabling this will ensure there is only one active controller manager.")
+
 	opts := zap.Options{
 		Development: true,
 	}
@@ -67,13 +63,13 @@ func main() {
 
 	ctrl.SetLogger(zap.New(zap.UseFlagOptions(&opts)))
 
-	if !enableLeaderElection {
-		err := leader.Become(context.TODO(), "nginx-lock")
-		if err != nil {
-			setupLog.Error(err, "unable to acquire leader lock")
-			os.Exit(1)
-		}
-	}
+	// if !enableLeaderElection {
+	// 	err := leader.Become(context.TODO(), "nginx-operator-lock")
+	// 	if err != nil {
+	// 		setupLog.Error(err, "unable to acquire leader lock")
+	// 		os.Exit(1)
+	// 	}
+	// }
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 scheme,
@@ -81,18 +77,7 @@ func main() {
 		Port:                   9443,
 		HealthProbeBindAddress: probeAddr,
 		LeaderElection:         enableLeaderElection,
-		LeaderElectionID:       "2f53385b.example.com",
-		// LeaderElectionReleaseOnCancel defines if the leader should step down voluntarily
-		// when the Manager ends. This requires the binary to immediately end when the
-		// Manager is stopped, otherwise, this setting is unsafe. Setting this significantly
-		// speeds up voluntary leader transitions as the new leader don't have to wait
-		// LeaseDuration time first.
-		//
-		// In the default scaffold provided, the program ends immediately after
-		// the manager stops, so would be fine to enable this option. However,
-		// if you are doing or is intended to do any operation such as perform cleanups
-		// after the manager stops then its usage might be unsafe.
-		// LeaderElectionReleaseOnCancel: true,
+		LeaderElectionID:       "df4c7b26.example.com",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")

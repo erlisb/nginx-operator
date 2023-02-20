@@ -1,6 +1,8 @@
 apiVersion: operator.example.com/v1alpha1
 kind: NginxOperator
 metadata:
-  name: nginxoperator-sample
+  name: cluster
+  namespace: nginx-operator-system
 spec:
-  # TODO(user): Add fields here
+  replicas: 1
+  port: 8080
