@@ -14,8 +14,11 @@ limitations under the License.
 package main
 
 import (
+	"context"
 	"flag"
 	"os"
+
+	"github.com/operator-framework/operator-lib/leader"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
@@ -63,13 +66,13 @@ func main() {
 
 	ctrl.SetLogger(zap.New(zap.UseFlagOptions(&opts)))
 
-	// if !enableLeaderElection {
-	// 	err := leader.Become(context.TODO(), "nginx-operator-lock")
-	// 	if err != nil {
-	// 		setupLog.Error(err, "unable to acquire leader lock")
-	// 		os.Exit(1)
-	// 	}
-	// }
+	if !enableLeaderElection {
+		err := leader.Become(context.TODO(), "nginx-operator-lock")
+		if err != nil {
+			setupLog.Error(err, "unable to acquire leader lock")
+			os.Exit(1)
+		}
+	}
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 scheme,
