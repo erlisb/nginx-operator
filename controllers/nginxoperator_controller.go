@@ -17,6 +17,10 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	operatorv1alpha1 "github.com/erlisb/nginx-operator/api/v1alpha1"
+	"github.com/erlisb/nginx-operator/assets"
+	"github.com/erlisb/nginx-operator/controllers/metrics"
 	apiv2 "github.com/operator-framework/api/pkg/operators/v2"
 	"github.com/operator-framework/operator-lib/conditions"
 	appsv1 "k8s.io/api/apps/v1"
@@ -28,9 +32,6 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-
-	operatorv1alpha1 "github.com/erlisb/nginx-operator/api/v1alpha1"
-	"github.com/erlisb/nginx-operator/assets"
 )
 
 // NginxOperatorReconciler reconciles a NginxOperator object
@@ -55,6 +56,7 @@ type NginxOperatorReconciler struct {
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.10.0/pkg/reconcile
 func (r *NginxOperatorReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	metrics.ReconcilesTotal.Inc()
+
 	logger := log.FromContext(ctx)
 
 	operatorCR := &operatorv1alpha1.NginxOperator{}
