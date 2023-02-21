@@ -16,9 +16,8 @@ package main
 import (
 	"context"
 	"flag"
-	"os"
-
 	"github.com/operator-framework/operator-lib/leader"
+	"os"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
