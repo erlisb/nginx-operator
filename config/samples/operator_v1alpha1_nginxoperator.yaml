@@ -5,4 +5,3 @@ metadata:
   namespace: nginx-operator-system
 spec:
   replicas: 1
-  port: 8080
