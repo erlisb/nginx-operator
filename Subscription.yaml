@@ -1,0 +1,14 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/nginx-operator.default: ""
+  name: nginx-operator-v0-0-1-sub5
+  namespace: default
+spec:
+  channel: alpha
+  installPlanApproval: Manual
+  name: nginx-operator
+  source: nginx-operator-catalog
+  sourceNamespace: default
+  startingCSV: nginx-operator.v0.0.1

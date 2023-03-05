@@ -1,0 +1,15 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: nginx-operator-catalog
+  namespace: default
+spec:
+  displayName: nginx-operator
+  address: 10.42.0.49:50051
+  icon:
+    base64data: ""
+    mediatype: ""
+  publisher: operator-sdk
+  secrets:
+  - "regcred"
+  sourceType: grpc
