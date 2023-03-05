@@ -96,6 +96,10 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "NginxOperator")
 		os.Exit(1)
 	}
+	if err = (&operatorv1alpha2.NginxOperator{}).SetupWebhookWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create webhook", "webhook", "NginxOperator")
+		os.Exit(1)
+	}
 	//+kubebuilder:scaffold:builder
 
 	if err := mgr.AddHealthzCheck("healthz", healthz.Ping); err != nil {
