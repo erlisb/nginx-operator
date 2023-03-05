@@ -16,8 +16,9 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/operator-framework/operator-lib/leader"
 	"os"
+
+	"github.com/operator-framework/operator-lib/leader"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
@@ -31,6 +32,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	operatorv1alpha1 "github.com/erlisb/nginx-operator/api/v1alpha1"
+	operatorv1alpha2 "github.com/erlisb/nginx-operator/api/v1alpha2"
 	"github.com/erlisb/nginx-operator/controllers"
 	//+kubebuilder:scaffold:imports
 )
@@ -44,6 +46,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(operatorv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(operatorv1alpha2.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
